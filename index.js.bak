@@ -57,32 +57,32 @@ client.connect(err => {
 		const name = req.body.name;
 		const filePath = `${__dirname}/doctors/${file.name}`;
 		console.log(file,email,name);
-		file.mv( filePath, err=>{
-			if(err){
-				console.log(err);
-				res.status(500).send({msg:'Faild to upload Image'})
-			}
+		//file.mv( filePath, err=>{
+			//if(err){
+			//	console.log(err);
+			//	res.status(500).send({msg:'Faild to upload Image'})
+			//}
 			//return res.send({name: file.name, path: `/${file.name}`});
-			const newImg = fs.readFileSync(filePath); 
+			const newImg = file.data; 
 			const encImg = newImg.toString('base64');
 			const imagef = {
-				contentType:req.files.file.mimetype,
-				size:req.files.file.size,
+				contentType:file.mimetype,
+				size:file.size,
 				img:Buffer.from(encImg,'base64'),
 			}
 			
 			doctorsCollection.insertOne({name,email, imagef})
 			.then(result =>{
-				fs.remove(filePath, error =>{
-					if(error){
-						console.log(error);
-						res.status(500).send({msg:'Faild to upload Image'})
-					}
+				//fs.remove(filePath, error =>{
+					//if(error){
+						//console.log(error);
+					//	res.status(500).send({msg:'Faild to upload Image'})
+				//	}
 					res.send(result.insertedCount > 0);
-				})
+				//})
 				
 			})
-		})
+		//})
 		
 	})
 	

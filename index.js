@@ -57,12 +57,6 @@ client.connect(err => {
 		const name = req.body.name;
 		const filePath = `${__dirname}/doctors/${file.name}`;
 		console.log(file,email,name);
-		//file.mv( filePath, err=>{
-			//if(err){
-			//	console.log(err);
-			//	res.status(500).send({msg:'Faild to upload Image'})
-			//}
-			//return res.send({name: file.name, path: `/${file.name}`});
 			const newImg = file.data; 
 			const encImg = newImg.toString('base64');
 			const imagef = {
@@ -73,16 +67,9 @@ client.connect(err => {
 			
 			doctorsCollection.insertOne({name,email, imagef})
 			.then(result =>{
-				//fs.remove(filePath, error =>{
-					//if(error){
-						//console.log(error);
-					//	res.status(500).send({msg:'Faild to upload Image'})
-				//	}
 					res.send(result.insertedCount > 0);
-				//})
 				
 			})
-		//})
 		
 	})
 	
