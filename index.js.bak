@@ -68,7 +68,7 @@ client.connect(err => {
 			const imagef = {
 				contentType:req.files.file.mimetype,
 				size:req.files.file.size,
-				img:Buffer(encImg,'base64'),
+				img:Buffer.from(encImg,'base64'),
 			}
 			
 			doctorsCollection.insertOne({name,email, imagef})
