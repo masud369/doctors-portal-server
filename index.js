@@ -90,6 +90,13 @@ client.connect(err => {
 		})
 	})
 	
+	app.get('/myAppointmen', (req,res)=>{
+		const email = req.query.email;
+		appointmentCollection.find({email})
+		.toArray((err,documents)=>{
+			res.send(documents)
+		})
+	})
 	
 	
 	
